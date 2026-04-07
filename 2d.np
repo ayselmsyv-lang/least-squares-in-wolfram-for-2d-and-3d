@@ -1,0 +1,25 @@
+x = {0, 2, 4, 6, 9, 11, 12, 15, 17, 19};
+y = {4, 6, 7, 6, 9, 8, 8, 10, 12, 12};
+
+data = Transpose[{x, y}];
+n = Length[x];
+
+sumX = Total[x];
+sumY = Total[y];
+sumX2 = Total[x^2];
+sumY2 = Total[y^2];
+sumXY = Total[x*y];
+
+a = (n*sumXY - sumX*sumY)/(n*sumX2 - sumX^2);
+b = (sumY - a*sumX)/n;
+yHat = a*x + b 
+{17029/3745, 19909/3745, 22789/3745, 3667/535, 29989/3745, 32869/3745, 34309/3745, 38629/3745, 41509/3745, 44389/3745}
+
+errors = y - yHat;
+yBar = Mean[y];
+SST = Total[(y - yBar)^2];
+SSE = Total[errors^2];
+r2 = 1 - SSE/SST // N
+
+Syx = Sqrt[SSE/(n - 2)] // N
+table = Transpose[{x, y, x^2, x*y, yHat, errors, errors^2}] //N
